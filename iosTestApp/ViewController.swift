@@ -17,8 +17,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     var httpURL: String!
     
-    var IDlist = [] as [Any?]
-    
+    var IDlist = [Array<String>]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.NavigationBar.title = "Deviece IMEI"
@@ -30,7 +30,6 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear")
-        print(self.IDlist)
     }
     
     private func readStringFromTxtFile(with name: String) -> String {
@@ -43,13 +42,15 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(self.IDlist.count)
         return self.IDlist.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = (self.IDlist[indexPath.row] as! String)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: nil)
+        
+        cell.detailTextLabel?.text = self.IDlist[indexPath.row][1]
+        cell.textLabel?.text = self.IDlist[indexPath.row][0]
+        
         return cell
     }
 
@@ -75,17 +76,14 @@ class ViewController: UIViewController, UITableViewDataSource {
 
                     let data = str.data(using: .utf8)!
                     let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [Dictionary<String,Any>]
-                    
+
                     for i in (json ?? nil)! {
-                        self.IDlist.append(i["entityId"])
+                        let addData = [i["entityId"], i["panId"]]
+                        self.IDlist.append(addData as! [String])
                     }
                     DispatchQueue.main.async {
-//                        self.TableView.beginUpdates()
-//                        self.TableView.endUpdates()
                         self.TableView.reloadData()
                     }
-                    print(self.IDlist)
-                    print(self.IDlist.count)
                 }
             }else{
                 print("data nil")
