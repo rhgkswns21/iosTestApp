@@ -14,6 +14,7 @@
 		1ED44FEC234B030900AB55E5 /* iosTestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1ED44FEA234B030900AB55E5 /* iosTestApp.xcdatamodeld */; };
 		1ED44FEE234B030A00AB55E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ED44FED234B030A00AB55E5 /* Assets.xcassets */; };
 		1ED44FF1234B030A00AB55E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1ED44FEF234B030A00AB55E5 /* LaunchScreen.storyboard */; };
+		1ED44FF9234B2A4500AB55E5 /* info_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1ED44FF8234B2A4500AB55E5 /* info_data.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		1ED44FED234B030A00AB55E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1ED44FF0234B030A00AB55E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1ED44FF2234B030A00AB55E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1ED44FF8234B2A4500AB55E5 /* info_data.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = info_data.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				1ED44FEF234B030A00AB55E5 /* LaunchScreen.storyboard */,
 				1ED44FF2234B030A00AB55E5 /* Info.plist */,
 				1ED44FEA234B030900AB55E5 /* iosTestApp.xcdatamodeld */,
+				1ED44FF8234B2A4500AB55E5 /* info_data.txt */,
 			);
 			path = iosTestApp;
 			sourceTree = "<group>";
@@ -128,6 +131,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ED44FF9234B2A4500AB55E5 /* info_data.txt in Resources */,
 				1ED44FF1234B030A00AB55E5 /* LaunchScreen.storyboard in Resources */,
 				1ED44FEE234B030A00AB55E5 /* Assets.xcassets in Resources */,
 				1ED44FE9234B030900AB55E5 /* Main.storyboard in Resources */,

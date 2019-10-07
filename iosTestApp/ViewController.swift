@@ -13,19 +13,33 @@ class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var NavigationBar: UINavigationItem!
     @IBOutlet weak var TableView: UITableView!
     
+    let fileManager = FileManager()
+    
+    var httpURL: String!
+    
     var IDlist = [] as [Any?]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.NavigationBar.title = "Deviece IMEI"
         self.TableView.dataSource = self
+        
+        self.httpURL = readStringFromTxtFile(with: "info_data").trimmingCharacters(in: ["\n"])
         imeiGet()
-        print(self.IDlist)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear")
         print(self.IDlist)
+    }
+    
+    private func readStringFromTxtFile(with name: String) -> String {
+        guard let path = Bundle.main.url(forResource: name, withExtension: "txt")
+            else { return "" }
+        do {
+            let content = try String(contentsOf: path, encoding: .utf8)
+            return content
+        } catch { return "" }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,8 +55,8 @@ class ViewController: UIViewController, UITableViewDataSource {
 
     func imeiGet() {
         print("imeiGet")
-        let url = URL(string: "http://111.93.235.82:3105/Identity/entities")!
-        var request = URLRequest(url: url)
+        let url = URL(string: self.httpURL+":3105/Identity/entities")
+        var request = URLRequest(url: url!)
         request.httpMethod = "get"
 
         let httpession = URLSession.shared
