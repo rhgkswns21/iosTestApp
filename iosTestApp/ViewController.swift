@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         IDlist = httpFunc.imeiGet()
         
         
-        self.NavigationBar.title = "Deviece IMEI"
+        self.NavigationBar.title = "Deviece List"
         self.TableView.dataSource = self
         self.TableView.delegate = self
         

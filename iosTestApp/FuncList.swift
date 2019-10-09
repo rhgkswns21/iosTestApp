@@ -13,6 +13,7 @@ class httpFuncList {
     private var httpURL = String()
     private var IDlist = [Array<String>]()
     private var entityInfo : [Any] = []
+    private var DataTimeList = [Array<String>]()
     
     func readStringFromTxtFile(with name: String) -> String {
         guard let path = Bundle.main.url(forResource: name, withExtension: "txt")
@@ -23,7 +24,7 @@ class httpFuncList {
         } catch { return "" }
     }
     
-
+    //Deivce Imei & PanId List Get
     func imeiGet() -> [Array<String>] {
         print("imeiGet")
         
@@ -70,14 +71,13 @@ class httpFuncList {
         return self.IDlist
     }
     
-    //
+    //DeviceInfo Data Get
     func deviceInfoGet(IMEI: String) -> [Any]{
         
         httpURL = readStringFromTxtFile(with: "info_data").trimmingCharacters(in: ["\n"])
         var done = false
         
         let url = URL(string: self.httpURL+":3105/Identity/entities/"+IMEI+"/config")
-//        let url = URL(string: self.httpURL+":3105/Identity/entities")
         var request = URLRequest(url: url!)
         request.httpMethod = "get"
         
@@ -96,7 +96,6 @@ class httpFuncList {
                     let str = String(strData)
 
                     let data = str.data(using: .utf8)!
-//                    let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [Dictionary<String,Any>]
                     let json : [String:Any] = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String : Any]
                     self.entityInfo.append(json["role"] as! Int)
                     self.entityInfo.append(json["ownId"] as! String)
@@ -120,6 +119,53 @@ class httpFuncList {
         } while !done
         print(self.entityInfo)
         return self.entityInfo
+    }
+    
+    //DeviceInfo Data List Get
+    func graphDataListGet(IMEI: String, SelectDate: String) -> [Array<String>]{
+        
+        httpURL = readStringFromTxtFile(with: "info_data").trimmingCharacters(in: ["\n"])
+        var done = false
+        
+        let url = URL(string: self.httpURL+":3737/influx/live/datalist/"+IMEI+SelectDate)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "get"
+        
+        let httpession = URLSession.shared
+        let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            //error 일경우 종료
+            guard error == nil && data != nil else {
+                if let err = error {
+                    print("Error : ", err.localizedDescription)
+                }
+                return
+            }
+            //data 가져오기
+            if let _data = data {
+                if let strData = NSString(data: _data, encoding: String.Encoding.utf8.rawValue) {
+                    let str = String(strData)
+
+                    let data = str.data(using: .utf8)!
+                    let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [Dictionary<String,Any>]
+                    
+                    for i in (json) {
+                        let addData = [i["time"], i["timestamp"]]
+                        self.DataTimeList.append(addData as! [String])
+                    }
+                    done = true
+                }
+            }else{
+                print("data nil")
+            }
+        })
+        
+        task.resume()
+        
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+        print(self.DataTimeList)
+        return self.DataTimeList
     }
     
 }

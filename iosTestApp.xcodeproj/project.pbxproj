@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E473F99234D739500B2B462 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E473F98234D739500B2B462 /* GraphViewController.swift */; };
 		1EA6B7EC234C606A00406C61 /* FuncList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA6B7EB234C606A00406C61 /* FuncList.swift */; };
 		1ED44FE2234B030900AB55E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED44FE1234B030900AB55E5 /* AppDelegate.swift */; };
 		1ED44FE4234B030900AB55E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED44FE3234B030900AB55E5 /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E473F98234D739500B2B462 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		1EA6B7EB234C606A00406C61 /* FuncList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncList.swift; sourceTree = "<group>"; };
 		1ED44FDE234B030900AB55E5 /* iosTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED44FE1234B030900AB55E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				1ED44FFC234B457C00AB55E5 /* SecondViewController.swift */,
+				1E473F98234D739500B2B462 /* GraphViewController.swift */,
 				1ED44FE1234B030900AB55E5 /* AppDelegate.swift */,
 				1ED44FE3234B030900AB55E5 /* SceneDelegate.swift */,
 				1ED44FE5234B030900AB55E5 /* ViewController.swift */,
@@ -153,6 +156,7 @@
 			files = (
 				1ED44FE6234B030900AB55E5 /* ViewController.swift in Sources */,
 				1ED44FE2234B030900AB55E5 /* AppDelegate.swift in Sources */,
+				1E473F99234D739500B2B462 /* GraphViewController.swift in Sources */,
 				1ED44FE4234B030900AB55E5 /* SceneDelegate.swift in Sources */,
 				1ED44FFD234B457C00AB55E5 /* SecondViewController.swift in Sources */,
 				1ED44FEC234B030900AB55E5 /* iosTestApp.xcdatamodeld in Sources */,
