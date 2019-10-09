@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1E473F99234D739500B2B462 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E473F98234D739500B2B462 /* GraphViewController.swift */; };
+		1E601350234DC0DC000BFE4F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E60134F234DC0DC000BFE4F /* GraphView.swift */; };
 		1EA6B7EC234C606A00406C61 /* FuncList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA6B7EB234C606A00406C61 /* FuncList.swift */; };
 		1ED44FE2234B030900AB55E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED44FE1234B030900AB55E5 /* AppDelegate.swift */; };
 		1ED44FE4234B030900AB55E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED44FE3234B030900AB55E5 /* SceneDelegate.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		1E473F98234D739500B2B462 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		1E60134F234DC0DC000BFE4F /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		1EA6B7EB234C606A00406C61 /* FuncList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncList.swift; sourceTree = "<group>"; };
 		1ED44FDE234B030900AB55E5 /* iosTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED44FE1234B030900AB55E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				1ED44FEA234B030900AB55E5 /* iosTestApp.xcdatamodeld */,
 				1ED44FF8234B2A4500AB55E5 /* info_data.txt */,
 				1EA6B7EB234C606A00406C61 /* FuncList.swift */,
+				1E60134F234DC0DC000BFE4F /* GraphView.swift */,
 			);
 			path = iosTestApp;
 			sourceTree = "<group>";
@@ -103,7 +106,6 @@
 				22FA0F602AA40C8236A06705 /* Pods-iosTestApp.debug.xcconfig */,
 				C8FDADEAD5FABDE47C8FFB07 /* Pods-iosTestApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -230,6 +232,7 @@
 				1ED44FFD234B457C00AB55E5 /* SecondViewController.swift in Sources */,
 				1ED44FEC234B030900AB55E5 /* iosTestApp.xcdatamodeld in Sources */,
 				1EA6B7EC234C606A00406C61 /* FuncList.swift in Sources */,
+				1E601350234DC0DC000BFE4F /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

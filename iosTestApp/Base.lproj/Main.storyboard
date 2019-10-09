@@ -213,17 +213,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="ctj-zs-Hts">
-                                <rect key="frame" x="0.0" y="104" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="ctj-zs-Hts">
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="yPQ-IV-VoH"/>
+                                </constraints>
                                 <connections>
                                     <action selector="datePickerValueChanged:" destination="ucw-Wx-F5Z" eventType="valueChanged" id="z2p-cr-Vhz"/>
                                 </connections>
                             </datePicker>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1pq-uH-osC" customClass="DropDown" customModule="iOSDropDown">
-                                <rect key="frame" x="159" y="185" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1pq-uH-osC" customClass="DropDown" customModule="iOSDropDown">
+                                <rect key="frame" x="0.0" y="137" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="H1Z-g8-9N9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="rowBackgroundColor">
@@ -237,8 +241,26 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJ3-4u-ng1" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="662" width="414" height="200"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="exN-sa-o9F"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="DJ3-4u-ng1" firstAttribute="leading" secondItem="hPs-6G-ta2" secondAttribute="leading" id="68B-46-rEt"/>
+                            <constraint firstItem="ctj-zs-Hts" firstAttribute="top" secondItem="hPs-6G-ta2" secondAttribute="top" id="7Ie-kc-xgM"/>
+                            <constraint firstItem="hPs-6G-ta2" firstAttribute="bottom" secondItem="DJ3-4u-ng1" secondAttribute="bottom" id="De3-3X-Ts7"/>
+                            <constraint firstItem="ctj-zs-Hts" firstAttribute="leading" secondItem="hPs-6G-ta2" secondAttribute="leading" id="awq-Hj-PPB"/>
+                            <constraint firstItem="1pq-uH-osC" firstAttribute="top" secondItem="ctj-zs-Hts" secondAttribute="bottom" constant="5" id="gAy-OU-ciC"/>
+                            <constraint firstItem="hPs-6G-ta2" firstAttribute="trailing" secondItem="1pq-uH-osC" secondAttribute="trailing" id="k5Y-Mb-Glg"/>
+                            <constraint firstItem="1pq-uH-osC" firstAttribute="leading" secondItem="hPs-6G-ta2" secondAttribute="leading" id="nat-mn-Rbj"/>
+                            <constraint firstItem="ctj-zs-Hts" firstAttribute="trailing" secondItem="hPs-6G-ta2" secondAttribute="trailing" id="zTZ-Kl-ghT"/>
+                            <constraint firstItem="hPs-6G-ta2" firstAttribute="trailing" secondItem="DJ3-4u-ng1" secondAttribute="trailing" id="zTd-fo-dEg"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="hPs-6G-ta2"/>
                     </view>
                     <navigationItem key="navigationItem" id="IfV-xH-ESu"/>
@@ -246,6 +268,7 @@
                         <outlet property="DatePicker" destination="ctj-zs-Hts" id="tc4-w0-h4k"/>
                         <outlet property="DropDownTextField" destination="1pq-uH-osC" id="fzy-4P-te4"/>
                         <outlet property="NavigationBar" destination="IfV-xH-ESu" id="1et-Q9-Jh0"/>
+                        <outlet property="chtChart" destination="DJ3-4u-ng1" id="bIU-gV-yxp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdo-0e-CdI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

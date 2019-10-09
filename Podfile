@@ -7,5 +7,6 @@ target 'iosTestApp' do
 
   # Pods for iosTestApp
   pod 'iOSDropDown'
+  pod 'Charts'
 
 end
