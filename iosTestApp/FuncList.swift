@@ -146,7 +146,7 @@ class httpFuncList {
                     let str = String(strData)
 
                     let data = str.data(using: .utf8)!
-                    let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [Dictionary<String,Any>]
+                    let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [Dictionary<String,String>]
                     
                     for i in (json) {
                         let addData = [i["time"], i["timestamp"]]
@@ -164,8 +164,54 @@ class httpFuncList {
         repeat {
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
         } while !done
-        print(self.DataTimeList)
+        
         return self.DataTimeList
+    }
+    
+    //DeviceInfo Data Get
+    func graphDataGet(IMEI: String, SelectDate: String) -> String{
+        var DataString:String = ""
+        
+        httpURL = readStringFromTxtFile(with: "info_data").trimmingCharacters(in: ["\n"])
+        var done = false
+        
+        let url = URL(string: self.httpURL+":3737/influx/live/data/"+IMEI+"/"+SelectDate)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "get"
+        
+        let httpession = URLSession.shared
+        let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            //error 일경우 종료
+            guard error == nil && data != nil else {
+                if let err = error {
+                    print("Error : ", err.localizedDescription)
+                }
+                return
+            }
+            //data 가져오기
+            if let _data = data {
+                if let strData = NSString(data: _data, encoding: String.Encoding.utf8.rawValue) {
+                    let str = String(strData)
+
+                    let data = str.data(using: .utf8)!
+                    let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [Dictionary<String,Any>]
+
+                    DataString = json[0]["status"] as! String
+
+                    done = true
+                }
+            }else{
+                print("data nil")
+            }
+        })
+        
+        task.resume()
+        
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+        
+        return DataString
     }
     
 }

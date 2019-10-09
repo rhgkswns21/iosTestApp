@@ -220,6 +220,23 @@
                                     <action selector="datePickerValueChanged:" destination="ucw-Wx-F5Z" eventType="valueChanged" id="z2p-cr-Vhz"/>
                                 </connections>
                             </datePicker>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1pq-uH-osC" customClass="DropDown" customModule="iOSDropDown">
+                                <rect key="frame" x="159" y="185" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="rowBackgroundColor">
+                                        <color key="value" systemColor="systemGrayColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedRowColor">
+                                        <color key="value" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="arrowColor">
+                                        <color key="value" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="hPs-6G-ta2"/>
@@ -227,6 +244,7 @@
                     <navigationItem key="navigationItem" id="IfV-xH-ESu"/>
                     <connections>
                         <outlet property="DatePicker" destination="ctj-zs-Hts" id="tc4-w0-h4k"/>
+                        <outlet property="DropDownTextField" destination="1pq-uH-osC" id="fzy-4P-te4"/>
                         <outlet property="NavigationBar" destination="IfV-xH-ESu" id="1et-Q9-Jh0"/>
                     </connections>
                 </viewController>
