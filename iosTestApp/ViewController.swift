@@ -20,17 +20,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var IDlist = [Array<String>]()
 
+    let test = CustomActivityIndicator()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let httpFunc = httpFuncList()
-        IDlist = httpFunc.imeiGet()
-        
+        print("viewDidLoad")
         
         self.NavigationBar.title = "Deviece List"
         self.TableView.dataSource = self
         self.TableView.delegate = self
         
+        let httpFunc = httpFuncList()
+        self.IDlist = httpFunc.imeiGet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +70,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         return cell
     }
-    
 }
 

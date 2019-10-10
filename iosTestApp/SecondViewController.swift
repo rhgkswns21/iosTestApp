@@ -30,6 +30,8 @@ class SecondViewController: UIViewController {
     var EntityInfo:[Any] = []
     let TypeString = ["M","S"]
     
+    var touchFlag = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
@@ -43,12 +45,22 @@ class SecondViewController: UIViewController {
 
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        print("viewWillDisappear")
+        self.touchFlag = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         print("didReceiveMemoryWarning")
     }
     
     @IBAction func GraphBTPush(_ sender: UIBarButtonItem) {
+        print("GraphBTPush")
+        if self.touchFlag == false{
+            self.touchFlag = true
+            self.performSegue(withIdentifier: "showGraphViewController", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
