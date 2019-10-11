@@ -24,6 +24,12 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var LowPowerModeSwitch: UISwitch!
     @IBOutlet weak var SslSwitch: UISwitch!
     
+    @IBOutlet weak var SampleBT: UIButton!
+    @IBOutlet weak var ReStartBT: UIButton!
+    @IBOutlet weak var ReBootBT: UIButton!
+    
+    @IBOutlet weak var SaveBT: UIButton!
+    
     var IMEI:String = ""
     var PanId:String = ""
     //0role, 1ownID, 2PreLoad, 3Duration, 4SyncTime, 5LowPowerMode, 6SSL
@@ -36,10 +42,10 @@ class SecondViewController: UIViewController {
         super.viewDidLoad()
         print("viewDidLoad")
         
-        print("SecondView : ", IMEI)
-        print("SecondView : ", PanId)
+        print("SecondView : ", self.IMEI)
+        print("SecondView : ", self.PanId)
         
-        self.IMEILabel.text = IMEI
+        self.IMEILabel.text = self.IMEI
         
         makeHttpUrl()
 
@@ -63,6 +69,24 @@ class SecondViewController: UIViewController {
         }
     }
     
+    @IBAction func SampleBTPush(_ sender: UIButton) {
+        print("SampleBTPush")
+        let httpFunc = httpFuncList()
+        httpFunc.remoteCommand(SendData: self.PanId.uppercased(), Command: "Sample")
+    }
+    
+    @IBAction func ReStartBTPush(_ sender: UIButton) {
+        print("ReStartBTPush")
+        let httpFunc = httpFuncList()
+        httpFunc.remoteCommand(SendData: self.IMEI, Command: "Restart")
+    }
+    
+    @IBAction func ReBootBTPusg(_ sender: UIButton) {
+        print("ReBootBTPusg")
+        let httpFunc = httpFuncList()
+        httpFunc.remoteCommand(SendData: self.IMEI, Command: "Reboot")
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showGraphViewController" {
             let graphVC = segue.destination as! GraphViewController
@@ -84,6 +108,58 @@ class SecondViewController: UIViewController {
         self.LowPowerModeSwitch.isOn = self.EntityInfo[5] as! Bool
         self.SyncTimeTextField.text = String(self.EntityInfo[4] as! Int)
         self.SslSwitch.isOn = self.EntityInfo[6] as! Bool
+    }
+    
+    @IBAction func saveBTPush(_ sender: UIButton) {
+        print("testBTPush")
+        let httpFunc = httpFuncList()
+        let rawData = httpFunc.deviceRawDataGet(IMEI: IMEI)
+        print(rawData)
+        var rawDict = self.convertToDictionary(text: rawData)
+
+        if self.TypeTextField.text == "M"{
+            rawDict!["role"] = 1
+        }
+        else{
+            rawDict!["role"] = 2
+        }
+        
+        rawDict!["ownId"] = self.OwnIdTextField.text
+        rawDict!["preload"] = Int(self.PreLoadTextField.text!)
+        rawDict!["duration"] = Int(self.DurationTextField.text!)
+        rawDict!["syncTime"] = Int(self.SyncTimeTextField.text!)
+        rawDict!["lowPowerMode"] = self.LowPowerModeSwitch.isOn
+        rawDict!["useSSL"] = self.SslSwitch.isOn
+        
+        let editData = self.convertToJSON(rawData: rawDict!)
+        httpFunc.editDevice(IMEI: IMEI, data: editData)
+    }
+    
+    private func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
+    private func convertToJSON(rawData: [String: Any]) -> String {
+        var theJSONText:String = ""
+        if let theJSONData = try? JSONSerialization.data(withJSONObject: rawData, options: []){
+            theJSONText = String(data: theJSONData, encoding: .ascii)!
+        }
+        return theJSONText
+    }
+    
+    @IBAction func LowPowerModeValueChanged(_ sender: UISwitch) {
+        print("LowPowerModeValueChanged")
+    }
+    
+    @IBAction func SSLValueChanged(_ sender: UISwitch) {
+        print("SSLValueChanged")
     }
     
 }

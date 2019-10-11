@@ -111,6 +111,9 @@
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wCy-dk-NmH">
                                 <rect key="frame" x="224" y="234" width="51" height="31"/>
+                                <connections>
+                                    <action selector="LowPowerModeValueChanged:" destination="WdP-R1-T29" eventType="valueChanged" id="0aB-tD-Rn0"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LowPowerMode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVg-zt-COP">
                                 <rect key="frame" x="187.5" y="203" width="122" height="21"/>
@@ -137,11 +140,44 @@
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQ0-RH-BLg">
                                 <rect key="frame" x="224" y="316" width="51" height="31"/>
+                                <connections>
+                                    <action selector="SSLValueChanged:" destination="WdP-R1-T29" eventType="valueChanged" id="0ga-mZ-KQT"/>
+                                </connections>
                             </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="By6-vi-ie8">
+                                <rect key="frame" x="20" y="403" width="89" height="30"/>
+                                <state key="normal" title="Sample Start"/>
+                                <connections>
+                                    <action selector="SampleBTPush:" destination="WdP-R1-T29" eventType="touchUpInside" id="l2I-1E-sNJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GnY-A9-2sR">
+                                <rect key="frame" x="242" y="403" width="52" height="30"/>
+                                <state key="normal" title="ReStart"/>
+                                <connections>
+                                    <action selector="ReStartBTPush:" destination="WdP-R1-T29" eventType="touchUpInside" id="P4v-W2-Dhe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDn-bc-c1g">
+                                <rect key="frame" x="344" y="403" width="50" height="30"/>
+                                <state key="normal" title="ReBoot"/>
+                                <connections>
+                                    <action selector="ReBootBTPusg:" destination="WdP-R1-T29" eventType="touchUpInside" id="1eI-nm-rB8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfe-Mw-zBw">
+                                <rect key="frame" x="20" y="782" width="34" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveBTPush:" destination="WdP-R1-T29" eventType="touchUpInside" id="y4l-NE-IZj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="moO-sl-BKW" firstAttribute="centerX" secondItem="zXP-1c-ls1" secondAttribute="centerX" id="0ql-68-Iid"/>
+                            <constraint firstItem="ZDn-bc-c1g" firstAttribute="leading" secondItem="GnY-A9-2sR" secondAttribute="trailing" constant="50" id="3tt-wA-wgz"/>
+                            <constraint firstItem="By6-vi-ie8" firstAttribute="top" secondItem="QAx-RJ-K0r" secondAttribute="bottom" constant="50" id="5AA-3u-vvg"/>
                             <constraint firstItem="QAx-RJ-K0r" firstAttribute="top" secondItem="rdW-fI-MHw" secondAttribute="bottom" constant="10" id="5Wu-lk-yah"/>
                             <constraint firstItem="zXP-1c-ls1" firstAttribute="top" secondItem="moO-sl-BKW" secondAttribute="bottom" constant="10" id="6Fs-dS-sSp"/>
                             <constraint firstItem="wu6-B5-Luc" firstAttribute="centerX" secondItem="OTb-hG-u7d" secondAttribute="centerX" id="6XU-16-6xf"/>
@@ -149,12 +185,16 @@
                             <constraint firstItem="nRA-wu-eOr" firstAttribute="top" secondItem="yCS-dd-EvI" secondAttribute="bottom" constant="20" id="7Ck-Rk-hNE"/>
                             <constraint firstItem="Gb4-ah-Dwv" firstAttribute="top" secondItem="RkC-kY-2NB" secondAttribute="bottom" constant="10" id="8oP-a7-UmM"/>
                             <constraint firstItem="yCS-dd-EvI" firstAttribute="top" secondItem="ndF-Ou-Ldz" secondAttribute="bottom" constant="10" id="9wJ-li-T10"/>
+                            <constraint firstItem="By6-vi-ie8" firstAttribute="leading" secondItem="OTb-hG-u7d" secondAttribute="leading" constant="20" id="AJP-aa-WSO"/>
+                            <constraint firstItem="dfe-Mw-zBw" firstAttribute="leading" secondItem="OTb-hG-u7d" secondAttribute="leading" constant="20" id="DRK-0C-ADx"/>
+                            <constraint firstItem="OTb-hG-u7d" firstAttribute="bottom" secondItem="dfe-Mw-zBw" secondAttribute="bottom" constant="50" id="DTd-NL-Z2F"/>
                             <constraint firstItem="wu6-B5-Luc" firstAttribute="top" secondItem="OTb-hG-u7d" secondAttribute="top" id="Jj0-bI-awz"/>
                             <constraint firstItem="ndF-Ou-Ldz" firstAttribute="top" secondItem="wu6-B5-Luc" secondAttribute="bottom" constant="10" id="KpI-C6-8Bo"/>
                             <constraint firstItem="Hua-A0-DuW" firstAttribute="centerX" secondItem="wu6-B5-Luc" secondAttribute="centerX" id="LtQ-cs-E2N"/>
                             <constraint firstItem="QAx-RJ-K0r" firstAttribute="leading" secondItem="OTb-hG-u7d" secondAttribute="leading" constant="25" id="M5p-EE-Zdy"/>
                             <constraint firstItem="rdW-fI-MHw" firstAttribute="centerX" secondItem="QAx-RJ-K0r" secondAttribute="centerX" id="M9S-f7-FSR"/>
                             <constraint firstItem="OTb-hG-u7d" firstAttribute="trailing" secondItem="zXP-1c-ls1" secondAttribute="trailing" constant="20" id="MuA-md-HYD"/>
+                            <constraint firstItem="GnY-A9-2sR" firstAttribute="top" secondItem="QAx-RJ-K0r" secondAttribute="bottom" constant="50" id="NSm-19-K0X"/>
                             <constraint firstItem="bBY-gz-vgY" firstAttribute="top" secondItem="nRA-wu-eOr" secondAttribute="bottom" constant="10" id="R5l-vA-NBo"/>
                             <constraint firstItem="lQ0-RH-BLg" firstAttribute="centerX" secondItem="wCy-dk-NmH" secondAttribute="centerX" id="Tlc-kh-tDd"/>
                             <constraint firstItem="wCy-dk-NmH" firstAttribute="top" secondItem="hVg-zt-COP" secondAttribute="bottom" constant="10" id="Xx0-eQ-GTz"/>
@@ -162,6 +202,7 @@
                             <constraint firstItem="Hua-A0-DuW" firstAttribute="width" secondItem="zXP-1c-ls1" secondAttribute="width" id="azl-dL-9yg"/>
                             <constraint firstItem="bBY-gz-vgY" firstAttribute="leading" secondItem="OTb-hG-u7d" secondAttribute="leading" constant="20" id="dny-6k-pmd"/>
                             <constraint firstItem="moO-sl-BKW" firstAttribute="top" secondItem="wu6-B5-Luc" secondAttribute="bottom" constant="10" id="dut-iv-N2Z"/>
+                            <constraint firstItem="ZDn-bc-c1g" firstAttribute="top" secondItem="QAx-RJ-K0r" secondAttribute="bottom" constant="50" id="gbF-tP-1zk"/>
                             <constraint firstItem="hVg-zt-COP" firstAttribute="centerX" secondItem="wCy-dk-NmH" secondAttribute="centerX" id="jTi-rp-iwD"/>
                             <constraint firstItem="Gb4-ah-Dwv" firstAttribute="leading" secondItem="bBY-gz-vgY" secondAttribute="trailing" constant="65" id="kLe-eW-vfj"/>
                             <constraint firstItem="wCy-dk-NmH" firstAttribute="leading" secondItem="Gb4-ah-Dwv" secondAttribute="trailing" constant="75" id="lEF-Ty-vq3"/>
@@ -175,6 +216,7 @@
                             <constraint firstItem="nRA-wu-eOr" firstAttribute="centerX" secondItem="bBY-gz-vgY" secondAttribute="centerX" id="vch-pZ-Vxa"/>
                             <constraint firstItem="RkC-kY-2NB" firstAttribute="top" secondItem="Hua-A0-DuW" secondAttribute="bottom" constant="20" id="vil-ts-gdC"/>
                             <constraint firstItem="hVg-zt-COP" firstAttribute="top" secondItem="zXP-1c-ls1" secondAttribute="bottom" constant="20" id="wEk-bf-Kp6"/>
+                            <constraint firstItem="OTb-hG-u7d" firstAttribute="trailing" secondItem="ZDn-bc-c1g" secondAttribute="trailing" constant="20" id="xL9-Ex-hCM"/>
                             <constraint firstItem="ndF-Ou-Ldz" firstAttribute="centerX" secondItem="yCS-dd-EvI" secondAttribute="centerX" id="xZD-I9-Fib"/>
                             <constraint firstItem="RkC-kY-2NB" firstAttribute="centerX" secondItem="Gb4-ah-Dwv" secondAttribute="centerX" id="xl3-Xz-q9n"/>
                         </constraints>
@@ -195,6 +237,10 @@
                         <outlet property="OwnIdTextField" destination="zXP-1c-ls1" id="wye-cQ-QEj"/>
                         <outlet property="PanIdTextField" destination="yCS-dd-EvI" id="yRy-vh-i6P"/>
                         <outlet property="PreLoadTextField" destination="Gb4-ah-Dwv" id="anC-xB-RvJ"/>
+                        <outlet property="ReBootBT" destination="ZDn-bc-c1g" id="ZIJ-Dy-iO5"/>
+                        <outlet property="ReStartBT" destination="GnY-A9-2sR" id="FRI-Fs-vxx"/>
+                        <outlet property="SampleBT" destination="By6-vi-ie8" id="vG7-Nd-CKr"/>
+                        <outlet property="SaveBT" destination="dfe-Mw-zBw" id="wgL-PQ-yRh"/>
                         <outlet property="SslSwitch" destination="lQ0-RH-BLg" id="CAO-2I-jC5"/>
                         <outlet property="SyncTimeTextField" destination="QAx-RJ-K0r" id="aov-dU-fuW"/>
                         <outlet property="TypeTextField" destination="Hua-A0-DuW" id="RJQ-Bh-DdN"/>

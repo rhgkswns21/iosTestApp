@@ -38,10 +38,7 @@ class httpFuncList {
         let httpession = URLSession.shared
         let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
             //error 일경우 종료
-            guard error == nil && data != nil else {
-                if let err = error {
-                    print("Error : ", err.localizedDescription)
-                }
+            if self.errorCheck(error: error, data: data) {
                 return
             }
             //data 가져오기
@@ -84,10 +81,7 @@ class httpFuncList {
         let httpession = URLSession.shared
         let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
             //error 일경우 종료
-            guard error == nil && data != nil else {
-                if let err = error {
-                    print("Error : ", err.localizedDescription)
-                }
+            if self.errorCheck(error: error, data: data) {
                 return
             }
             //data 가져오기
@@ -134,10 +128,7 @@ class httpFuncList {
         let httpession = URLSession.shared
         let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
             //error 일경우 종료
-            guard error == nil && data != nil else {
-                if let err = error {
-                    print("Error : ", err.localizedDescription)
-                }
+            if self.errorCheck(error: error, data: data) {
                 return
             }
             //data 가져오기
@@ -182,10 +173,7 @@ class httpFuncList {
         let httpession = URLSession.shared
         let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
             //error 일경우 종료
-            guard error == nil && data != nil else {
-                if let err = error {
-                    print("Error : ", err.localizedDescription)
-                }
+            if self.errorCheck(error: error, data: data) {
                 return
             }
             //data 가져오기
@@ -212,6 +200,115 @@ class httpFuncList {
         } while !done
         
         return DataString
+    }
+    
+    
+    //DeviceInfo RemoteCommand
+    func remoteCommand(SendData: String, Command: String){
+       
+        httpURL = readStringFromTxtFile(with: "info_data").trimmingCharacters(in: ["\n"])
+        var done = false
+        
+        let url = URL(string: self.httpURL+":3001/FOTA/action")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "post"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let bodyString = "{\"appName\":\"SHM\",\"deviceList\":\"" + SendData + "\",\"action\":\"" + Command + "\"}"
+        
+        let body = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: false)
+
+        request.httpBody = body
+        
+        let httpession = URLSession.shared
+        let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            if self.errorCheck(error: error, data: data) {
+                return
+            }
+            done = true
+        })
+        task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+    }
+    
+    //DeviceInfo Row Data Get
+    func deviceRawDataGet(IMEI: String) -> String{
+        var str:String = ""
+        
+        httpURL = readStringFromTxtFile(with: "info_data").trimmingCharacters(in: ["\n"])
+        var done = false
+        
+        let url = URL(string: self.httpURL+":3105/Identity/entities/"+IMEI+"/config")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "get"
+        
+        let httpession = URLSession.shared
+        let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            //error 일경우 종료
+            if self.errorCheck(error: error, data: data) {
+                return
+            }
+            //data 가져오기
+            if let _data = data {
+                if let strData = NSString(data: _data, encoding: String.Encoding.utf8.rawValue) {
+                    str = String(strData)
+                    done = true
+                }
+            }else{
+                print("data nil")
+            }
+        })
+        
+        task.resume()
+        
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+        
+        return str
+    }
+    
+    //DeviceInfo RemoteCommand
+    func editDevice(IMEI: String, data: String){
+       
+        httpURL = readStringFromTxtFile(with: "info_data").trimmingCharacters(in: ["\n"])
+        var done = false
+        
+        let url = URL(string: self.httpURL+":3105/Identity/entities/" + IMEI + "/config")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "post"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        let bodyString = "{\"appName\":\"SHM\",\"deviceList\":\"" + SendData + "\",\"action\":\"" + Command + "\"}"
+        let bodyString = data
+        
+        let body = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: false)
+
+        request.httpBody = body
+        
+        let httpession = URLSession.shared
+        let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            if self.errorCheck(error: error, data: data) {
+                return
+            }
+            print(data)
+            done = true
+        })
+        task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+    }
+    
+    private func errorCheck(error: Error?, data: Data?) -> Bool{
+        //error 일경우 종료
+        guard error == nil && data != nil else {
+            if let err = error {
+                print("Error : ", err.localizedDescription)
+            }
+            return true
+        }
+        return false
     }
     
 }
