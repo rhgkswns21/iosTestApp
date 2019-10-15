@@ -61,6 +61,10 @@ class SecondViewController: UIViewController {
         print("didReceiveMemoryWarning")
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     @IBAction func GraphBTPush(_ sender: UIBarButtonItem) {
         print("GraphBTPush")
         if self.touchFlag == false{
