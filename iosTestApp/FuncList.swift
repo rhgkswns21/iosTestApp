@@ -279,7 +279,6 @@ class httpFuncList {
         var request = URLRequest(url: url!)
         request.httpMethod = "post"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        let bodyString = "{\"appName\":\"SHM\",\"deviceList\":\"" + SendData + "\",\"action\":\"" + Command + "\"}"
         let bodyString = data
         
         let body = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: false)
@@ -291,7 +290,38 @@ class httpFuncList {
             if self.errorCheck(error: error, data: data) {
                 return
             }
-            print(data)
+            print(data as Any)
+            done = true
+        })
+        task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+    }
+    
+    
+    //DeviceInfo RemoteCommand
+    func fotaSend(IMEI: String, command: String){
+       
+        httpURL = readStringFromTxtFile(with: "info_data").trimmingCharacters(in: ["\n"])
+        var done = false
+        
+        let url = URL(string: self.httpURL+":3001/FOTA/send/")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "post"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let dataString = "{\"protocol\":\"\",\"appName\":\"SHM\",\"filePath\":\"\",\"checksum\":\"\",\"version\":\"\",\"deviceList\":\"" + IMEI + "\",\"type\":\"" + command + "\"}"
+        
+        let body = dataString.data(using: String.Encoding.utf8, allowLossyConversion: false)
+
+        request.httpBody = body
+        
+        let httpession = URLSession.shared
+        let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            if self.errorCheck(error: error, data: data) {
+                return
+            }
+            print(data as Any)
             done = true
         })
         task.resume()

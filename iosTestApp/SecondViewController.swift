@@ -75,20 +75,42 @@ class SecondViewController: UIViewController {
     
     @IBAction func SampleBTPush(_ sender: UIButton) {
         print("SampleBTPush")
-        let httpFunc = httpFuncList()
-        httpFunc.remoteCommand(SendData: self.PanId.uppercased(), Command: "Sample")
+        
+        let alert = UIAlertController(title: "SampleStart", message: "Press the \"OK\" button to SampleStart.", preferredStyle: UIAlertController.Style.alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .default, handler : {(ACTION) -> Void in self.buttonFunc(command: "Sample")} )
+        let cancel = UIAlertAction(title: "cancel", style: .destructive, handler : nil)
+        
+        alert.addAction(cancel)
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func ReStartBTPush(_ sender: UIButton) {
         print("ReStartBTPush")
-        let httpFunc = httpFuncList()
-        httpFunc.remoteCommand(SendData: self.IMEI, Command: "Restart")
+        let alert = UIAlertController(title: "Restart", message: "Press the \"OK\" button to Restart.", preferredStyle: UIAlertController.Style.alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .default, handler : {(ACTION) -> Void in self.buttonFunc(command: "Restart")} )
+        let cancel = UIAlertAction(title: "cancel", style: .destructive, handler : nil)
+        
+        alert.addAction(cancel)
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func ReBootBTPusg(_ sender: UIButton) {
         print("ReBootBTPusg")
-        let httpFunc = httpFuncList()
-        httpFunc.remoteCommand(SendData: self.IMEI, Command: "Reboot")
+        let alert = UIAlertController(title: "Reboot", message: "Press the \"OK\" button to Reboot.", preferredStyle: UIAlertController.Style.alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .default, handler : {(ACTION) -> Void in self.buttonFunc(command: "Reboot")} )
+        let cancel = UIAlertAction(title: "cancel", style: .destructive, handler : nil)
+        
+        alert.addAction(cancel)
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -115,28 +137,64 @@ class SecondViewController: UIViewController {
     }
     
     @IBAction func saveBTPush(_ sender: UIButton) {
-        print("testBTPush")
-        let httpFunc = httpFuncList()
-        let rawData = httpFunc.deviceRawDataGet(IMEI: IMEI)
-        print(rawData)
-        var rawDict = self.convertToDictionary(text: rawData)
+        print("saveBTPush")
+        let alert = UIAlertController(title: "Save", message: "Press the \"OK\" button to save.", preferredStyle: UIAlertController.Style.alert)
 
-        if self.TypeTextField.text == "M"{
-            rawDict!["role"] = 1
-        }
-        else{
-            rawDict!["role"] = 2
-        }
+        let okAction = UIAlertAction(title: "OK", style: .default, handler : {(ACTION) -> Void in self.buttonFunc(command: "save")} )
+        let cancel = UIAlertAction(title: "cancel", style: .destructive, handler : nil)
         
-        rawDict!["ownId"] = self.OwnIdTextField.text
-        rawDict!["preload"] = Int(self.PreLoadTextField.text!)
-        rawDict!["duration"] = Int(self.DurationTextField.text!)
-        rawDict!["syncTime"] = Int(self.SyncTimeTextField.text!)
-        rawDict!["lowPowerMode"] = self.LowPowerModeSwitch.isOn
-        rawDict!["useSSL"] = self.SslSwitch.isOn
+        alert.addAction(cancel)
+        alert.addAction(okAction)
         
-        let editData = self.convertToJSON(rawData: rawDict!)
-        httpFunc.editDevice(IMEI: IMEI, data: editData)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func buttonFunc(command: String){
+        print("buttonFunc")
+        switch command {
+        case "save":
+            print(command)
+            let httpFunc = httpFuncList()
+            let rawData = httpFunc.deviceRawDataGet(IMEI: IMEI)
+            print(rawData)
+            var rawDict = self.convertToDictionary(text: rawData)
+
+            if self.TypeTextField.text == "M"{
+                rawDict!["role"] = 1
+            }
+            else{
+                rawDict!["role"] = 2
+            }
+
+            rawDict!["ownId"] = self.OwnIdTextField.text
+            rawDict!["preload"] = Int(self.PreLoadTextField.text!)
+            rawDict!["duration"] = Int(self.DurationTextField.text!)
+            rawDict!["syncTime"] = Int(self.SyncTimeTextField.text!)
+            rawDict!["lowPowerMode"] = self.LowPowerModeSwitch.isOn
+            rawDict!["useSSL"] = self.SslSwitch.isOn
+
+            let editData = self.convertToJSON(rawData: rawDict!)
+            httpFunc.editDevice(IMEI: IMEI, data: editData)
+            httpFunc.fotaSend(IMEI: IMEI, command: "UpdateConfig")
+            
+        case "Sample":
+            print(command)
+            let httpFunc = httpFuncList()
+            httpFunc.remoteCommand(SendData: self.PanId.uppercased(), Command: "Sample")
+            
+        case "Restart":
+            print(command)
+            let httpFunc = httpFuncList()
+            httpFunc.remoteCommand(SendData: self.IMEI, Command: "Restart")
+            
+        case "Reboot":
+            print(command)
+            let httpFunc = httpFuncList()
+            httpFunc.remoteCommand(SendData: self.IMEI, Command: "Reboot")
+            
+        default:
+            print("Null")
+        }
     }
     
     private func convertToDictionary(text: String) -> [String: Any]? {
