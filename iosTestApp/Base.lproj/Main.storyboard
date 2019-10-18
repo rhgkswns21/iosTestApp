@@ -19,19 +19,69 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGi-MN-quS">
+                                <rect key="frame" x="20" y="108" width="374" height="734"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4t6-Iy-vAG">
+                                        <rect key="frame" x="189.5" y="685" width="174.5" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Jxe-Mc-cHC"/>
+                                        </constraints>
+                                        <state key="normal" title="OK"/>
+                                        <connections>
+                                            <action selector="OKBTPush:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lOd-4d-tOl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYP-QW-hRF">
+                                        <rect key="frame" x="10" y="685" width="174.5" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="ZWX-gW-9Ss"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" systemColor="systemPinkColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="CancelBTPush:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cxp-U9-IWu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="4t6-Iy-vAG" secondAttribute="bottom" constant="5" id="7Vj-nT-uYz"/>
+                                    <constraint firstItem="hYP-QW-hRF" firstAttribute="leading" secondItem="hGi-MN-quS" secondAttribute="leading" constant="10" id="89T-B8-n11"/>
+                                    <constraint firstAttribute="bottom" secondItem="hYP-QW-hRF" secondAttribute="bottom" constant="5" id="8Y6-Gf-ddo"/>
+                                    <constraint firstItem="4t6-Iy-vAG" firstAttribute="leading" secondItem="hYP-QW-hRF" secondAttribute="trailing" constant="5" id="IM2-oo-WLd"/>
+                                    <constraint firstItem="hYP-QW-hRF" firstAttribute="width" secondItem="4t6-Iy-vAG" secondAttribute="width" id="NoV-98-HpI"/>
+                                    <constraint firstAttribute="trailing" secondItem="4t6-Iy-vAG" secondAttribute="trailing" constant="10" id="q7y-DC-fDL"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="M7B-fz-5Wu" secondAttribute="trailing" id="4mb-XG-Ryd"/>
+                            <constraint firstItem="hGi-MN-quS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="9v3-Hm-XM4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hGi-MN-quS" secondAttribute="trailing" constant="20" id="P9I-m8-S4N"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hGi-MN-quS" secondAttribute="bottom" constant="20" id="Sv3-R3-iqk"/>
                             <constraint firstItem="M7B-fz-5Wu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="V47-JV-PlU"/>
+                            <constraint firstItem="hGi-MN-quS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="cNA-Q8-y2o"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="M7B-fz-5Wu" secondAttribute="bottom" id="nE1-pa-Ra5"/>
                             <constraint firstItem="M7B-fz-5Wu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="sXx-T3-N7Z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="QEp-Bz-EnI"/>
+                    <navigationItem key="navigationItem" id="QEp-Bz-EnI">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="LEp-3S-EYm">
+                            <connections>
+                                <action selector="DeviceAddBTPush:" destination="BYZ-38-t0r" id="oE7-wW-jhq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="CancelBT" destination="hYP-QW-hRF" id="cZX-W0-YAu"/>
+                        <outlet property="DeivceAddButton" destination="LEp-3S-EYm" id="a4X-uf-fRa"/>
+                        <outlet property="DeviceInfoView" destination="hGi-MN-quS" id="s7E-tf-olG"/>
                         <outlet property="NavigationBar" destination="QEp-Bz-EnI" id="Ga6-fa-nG2"/>
+                        <outlet property="OKBT" destination="4t6-Iy-vAG" id="knY-vK-QLI"/>
                         <outlet property="TableView" destination="M7B-fz-5Wu" id="Pe4-uE-hPU"/>
                         <segue destination="WdP-R1-T29" kind="show" identifier="showSecondViewController" id="hIv-eu-wm9"/>
                     </connections>
