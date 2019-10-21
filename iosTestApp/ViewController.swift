@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import iOSDropDown
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -18,6 +19,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var CancelBT: UIButton!
     @IBOutlet weak var OKBT: UIButton!
     
+    @IBOutlet weak var EntityIDTextField: UITextField!
+    @IBOutlet weak var PanIDDropDown: DropDown!
+    @IBOutlet weak var FriendlyNameTextField: UITextField!
+    @IBOutlet weak var TypeDropDown: DropDown!
+    @IBOutlet weak var OwnIDTextField: UITextField!
+    @IBOutlet weak var DurationTextField: UITextField!
+    @IBOutlet weak var PreLoadTextField: UITextField!
+    @IBOutlet weak var SyncTimeTextField: UITextField!
+    @IBOutlet weak var LowPowerModeSwitch: UISwitch!
+    @IBOutlet weak var SSLSwitch: UISwitch!
     
     var PassData = [String]()
     
@@ -26,6 +37,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var httpURL: String!
     
     var IDlist = [Array<String>]()
+    
+    var PanIDList = [String]()
 
     let test = CustomActivityIndicator()
     
@@ -42,6 +55,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.CancelBT.layer.borderWidth = 1.5
         self.OKBT.layer.borderColor = UIColor.lightGray.cgColor
         self.OKBT.layer.borderWidth = 1.5
+        self.DeviceInfoView.layer.borderColor = UIColor.lightGray.cgColor
+        self.DeviceInfoView.layer.borderWidth = 2
         
         self.NavigationBar.title = "Deviece List"
         self.TableView.dataSource = self
@@ -66,38 +81,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func DeviceAddBTPush(_ sender: UIBarButtonItem) {
         print("DeviceAddBTPush")
-        
         self.DeviceInfoView.isHidden = false
-        
-        
-//        let margins = self.view.layoutMarginsGuide
-//
-//        let deviceInfoView = UIView()
-//        deviceInfoView.bounds.size = CGSize(width: (8/10)*self.view.bounds.width, height: (8/10)*self.view.bounds.height)
-//        deviceInfoView.center = CGPoint(x: self.view.center.x, y: (self.view.center.y)+22)
-//        deviceInfoView.backgroundColor = UIColor.gray
-//        self.view.addSubview(deviceInfoView)
-        
-//        deviceInfoView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        deviceInfoView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-//        deviceInfoView.topAnchor.constraint(equalTo: 10).isActive = true
-//        deviceInfoView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-//        deviceInfoView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-//        deviceInfoView.widthAnchor.constraint(equalTo: margins.widthAnchor).isActive = true
-//        deviceInfoView.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 8/10, constant: -4.0).isActive = true
-//        deviceInfoView.bottomAnchor.constraint(equalTo: margins.bottom, multiplier: 1/3, constant: -4.0).isActive = true
-        
-        
-        
-//        let margins = GrapDrawView.layoutMarginsGuide
-//self.xGraph.translatesAutoresizingMaskIntoConstraints = false
-        
-//        self.xGraph.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
-//        self.xGraph.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
-//        self.xGraph.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-//        self.xGraph.widthAnchor.constraint(equalTo: margins.widthAnchor).isActive = true
-//        self.xGraph.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 1/3, constant: -4.0).isActive = true
+        let httpFunc = httpFuncList()
+        self.PanIDList = httpFunc.panIDListGet()
+        self.PanIDDropDown.optionArray = self.PanIDList
+        self.TypeDropDown.optionArray = ["M","S"]
     }
     
     @IBAction func CancelBTPush(_ sender: UIButton) {
@@ -108,6 +96,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func OKBTPush(_ sender: UIButton) {
         print("OKBTPush")
         self.DeviceInfoView.isHidden = true
+        
+        let httpFunc = httpFuncList()
+        httpFunc.createDevice(IMEI: self.EntityIDTextField.text!, Name: self.FriendlyNameTextField.text!, PanId: self.PanIDDropDown.text!)
+        
+        httpFunc.initCreateDevice(IMEI: self.EntityIDTextField.text!, Type: String(self.TypeDropDown.selectedIndex!+1), OwnID: self.OwnIDTextField.text!, PreLoad: self.PreLoadTextField.text!, Duration: self.DurationTextField.text!, SyncTime: self.SyncTimeTextField.text!, LPM: String(self.LowPowerModeSwitch.isOn), SSL: String(self.SSLSwitch.isOn))
+        
+        self.IDlist.removeAll()
+        self.IDlist = httpFunc.imeiGet()
+        self.TableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -133,6 +130,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             print("delete")
+            print(indexPath.row)
+            print(self.IDlist[indexPath.row][0])
+            let httpFunc = httpFuncList()
+            httpFunc.deviceDelete(IMEI: self.IDlist[indexPath.row][0])
+            self.IDlist.removeAll()
+            self.IDlist = httpFunc.imeiGet()
+            self.TableView.reloadData()
         }
     }
 }
