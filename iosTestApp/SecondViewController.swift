@@ -11,6 +11,7 @@ import UIKit
 class SecondViewController: UIViewController {
         
     @IBOutlet weak var GraphBT: UIBarButtonItem!
+    @IBOutlet weak var LogBT: UIBarButtonItem!
     
     @IBOutlet weak var IMEILabel: UILabel!
     
@@ -73,6 +74,11 @@ class SecondViewController: UIViewController {
         }
     }
     
+    @IBAction func LogBTPush(_ sender: UIBarButtonItem) {
+        print("LogBTPush")
+        self.performSegue(withIdentifier: "showLogViewController", sender: self)
+    }
+    
     @IBAction func SampleBTPush(_ sender: UIButton) {
         print("SampleBTPush")
         
@@ -117,6 +123,11 @@ class SecondViewController: UIViewController {
         if segue.identifier == "showGraphViewController" {
             let graphVC = segue.destination as! GraphViewController
             graphVC.IMEI = self.IMEI
+        }
+        else if segue.identifier == "showLogViewController" {
+            let logVC = segue.destination as! LogViewController
+            logVC.IMEI = self.IMEI
+            logVC.PanID = self.PanId
         }
     }
     

@@ -467,7 +467,60 @@ class httpFuncList {
                 RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
             } while !done
         }
+    
+    //LogListGet
+    func logListGet(PanID: String, SelectDate: String) -> [String] {
+        print("logListGet")
         
+        let httpURL = readStringFromTxtFile(with: "info_data").split(separator: "\n")
+        var done = false
+        
+        var logListData = [String]()
+        
+        let url = URL(string: httpURL[0]+":3737/filesystem/" + PanID + "/LOG/" + SelectDate)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "get"
+
+        let httpession = URLSession.shared
+        let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            //error 일경우 종료
+            if self.errorCheck(error: error, data: data) {
+                return
+            }
+            //data 가져오기
+            if let _data = data {
+                if let strData = NSString(data: _data, encoding: String.Encoding.utf8.rawValue) {
+                    let str = String(strData)
+
+                    let data = str.data(using: .utf8)!
+//                    let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [Dictionary<String,Any>]
+                    let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : [String]]
+//                    print(json as Any)
+//                    print(json!["data"])
+                    logListData = json?["data"] ?? ["nil"]
+//                    for i in (json ?? nil)! {
+//                        panIDList.append(i["panId"] as! String)
+//                    }
+                    done = true
+                }
+            }else{
+                print("data nil")
+            }
+        })
+        
+        task.resume()
+        
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+        return logListData
+    }
+    
+    
+    
+    
+    
+    
         private func errorCheck(error: Error?, data: Data?) -> Bool{
             //error 일경우 종료
             guard error == nil && data != nil else {

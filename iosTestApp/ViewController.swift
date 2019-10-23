@@ -8,8 +8,31 @@
 
 import UIKit
 import iOSDropDown
+import Starscream
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+
+//    let socket = WebSocket(url: NSURL(string: "ws://111.93.235.82:301/devices/live")! as URL)
+//
+//    func websocketDidConnect(socket: WebSocketClient) {
+//        print("websocketDidConnect")
+//    }
+//
+//    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+//        print("websocketDidDisconnect")
+//    }
+//
+//    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+//        print("websocketDidReceiveMessage")
+//        print(text)
+//    }
+//
+//    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+//        print("websocketDidReceiveData")
+//        print(data)
+//    }
+//
     
     @IBOutlet weak var NavigationBar: UINavigationItem!
     @IBOutlet weak var TableView: UITableView!
@@ -30,6 +53,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var LowPowerModeSwitch: UISwitch!
     @IBOutlet weak var SSLSwitch: UISwitch!
     
+    
+    
     var PassData = [String]()
     
     let fileManager = FileManager()
@@ -49,6 +74,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
+        
+        
+//        self.socket.delegate = self
+//        self.socket.connect()
+        
         
         self.DeviceInfoView.isHidden = true
         self.CancelBT.layer.borderColor = UIColor.lightGray.cgColor
@@ -86,6 +116,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.PanIDList = httpFunc.panIDListGet()
         self.PanIDDropDown.optionArray = self.PanIDList
         self.TypeDropDown.optionArray = ["M","S"]
+    }
+    
+    @IBAction func testdd(_ sender: UIBarButtonItem) {
+        print("TEST")
     }
     
     @IBAction func CancelBTPush(_ sender: UIButton) {
@@ -139,5 +173,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.TableView.reloadData()
         }
     }
+    
 }
 
