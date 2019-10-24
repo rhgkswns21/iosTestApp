@@ -53,8 +53,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var LowPowerModeSwitch: UISwitch!
     @IBOutlet weak var SSLSwitch: UISwitch!
     
-    
-    
     var PassData = [String]()
     
     let fileManager = FileManager()
@@ -98,6 +96,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
