@@ -11,8 +11,6 @@ import iOSDropDown
 import Starscream
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-
 //    let socket = WebSocket(url: NSURL(string: "ws://111.93.235.82:301/devices/live")! as URL)
 //
 //    func websocketDidConnect(socket: WebSocketClient) {
@@ -33,7 +31,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        print(data)
 //    }
 //
-    
     @IBOutlet weak var NavigationBar: UINavigationItem!
     @IBOutlet weak var TableView: UITableView!
     @IBOutlet weak var DeivceAddButton: UIBarButtonItem!
@@ -41,6 +38,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var CancelBT: UIButton!
     @IBOutlet weak var OKBT: UIButton!
+    
+    @IBOutlet weak var SysLogBT: UIBarButtonItem!
     
     @IBOutlet weak var EntityIDTextField: UITextField!
     @IBOutlet weak var PanIDDropDown: DropDown!
@@ -62,8 +61,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var IDlist = [Array<String>]()
     
     var PanIDList = [String]()
-
-    let test = CustomActivityIndicator()
+    
+    let syslogfunc = SysLogFunc()
     
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
@@ -73,10 +72,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         print("viewDidLoad")
         
-        
 //        self.socket.delegate = self
 //        self.socket.connect()
-        
         
         self.DeviceInfoView.isHidden = true
         self.CancelBT.layer.borderColor = UIColor.lightGray.cgColor
@@ -89,6 +86,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.NavigationBar.title = "Deviece List"
         self.TableView.dataSource = self
         self.TableView.delegate = self
+        
+
+        self.syslogfunc.directoryList()
         
         let httpFunc = httpFuncList()
         self.IDlist = httpFunc.imeiGet()
@@ -109,6 +109,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             secondVC.PanId = self.PassData[1]
             self.PassData.removeAll()
         }
+        else if segue.identifier == "showSystemLogViewController" {
+            
+        }
+    }
+    
+    @IBAction func SysLogBTPush(_ sender: UIBarButtonItem) {
+        print("SysLogBTPush")
+        self.performSegue(withIdentifier: "showSystemLogViewController", sender: self)
     }
     
     @IBAction func DeviceAddBTPush(_ sender: UIBarButtonItem) {
@@ -118,10 +126,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.PanIDList = httpFunc.panIDListGet()
         self.PanIDDropDown.optionArray = self.PanIDList
         self.TypeDropDown.optionArray = ["M","S"]
-    }
-    
-    @IBAction func testdd(_ sender: UIBarButtonItem) {
-        print("TEST")
     }
     
     @IBAction func CancelBTPush(_ sender: UIButton) {

@@ -246,9 +246,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="QEp-Bz-EnI">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="done" id="DbV-rf-C1F">
+                        <barButtonItem key="leftBarButtonItem" title="SysLog" id="8AK-M0-Mbr">
                             <connections>
-                                <action selector="testdd:" destination="BYZ-38-t0r" id="sZK-Ej-z3W"/>
+                                <action selector="SysLogBTPush:" destination="BYZ-38-t0r" id="dDm-gN-hj2"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="LEp-3S-EYm">
@@ -272,14 +272,47 @@
                         <outlet property="PreLoadTextField" destination="riE-cq-hkM" id="NJz-cA-eAz"/>
                         <outlet property="SSLSwitch" destination="yXD-Cc-W79" id="fdI-Y2-Ij6"/>
                         <outlet property="SyncTimeTextField" destination="lkm-bs-gEo" id="Deh-Kj-CXP"/>
+                        <outlet property="SysLogBT" destination="8AK-M0-Mbr" id="mq4-1R-d3E"/>
                         <outlet property="TableView" destination="M7B-fz-5Wu" id="Pe4-uE-hPU"/>
                         <outlet property="TypeDropDown" destination="UCW-GQ-zMP" id="CqW-b0-wbL"/>
                         <segue destination="WdP-R1-T29" kind="show" identifier="showSecondViewController" id="hIv-eu-wm9"/>
+                        <segue destination="Ffr-jY-VfV" kind="show" identifier="showSystemLogViewController" id="Hz9-Qk-Gxw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="311.59420289855075" y="118.52678571428571"/>
+        </scene>
+        <!--System Log View Controller-->
+        <scene sceneID="DL6-ru-VzA">
+            <objects>
+                <viewController id="Ffr-jY-VfV" customClass="SystemLogViewController" customModule="iosTestApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="n5g-P8-fQV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lGm-Pz-C4c">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="lGm-Pz-C4c" firstAttribute="top" secondItem="JLX-sv-vgx" secondAttribute="top" id="RMa-0F-RLD"/>
+                            <constraint firstItem="lGm-Pz-C4c" firstAttribute="leading" secondItem="JLX-sv-vgx" secondAttribute="leading" id="aEG-fj-RO7"/>
+                            <constraint firstItem="JLX-sv-vgx" firstAttribute="bottom" secondItem="lGm-Pz-C4c" secondAttribute="bottom" id="aFy-J8-0cI"/>
+                            <constraint firstItem="JLX-sv-vgx" firstAttribute="trailing" secondItem="lGm-Pz-C4c" secondAttribute="trailing" id="vcE-aI-UhI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JLX-sv-vgx"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yMQ-2H-yaY"/>
+                    <connections>
+                        <outlet property="LogFileListTableView" destination="lGm-Pz-C4c" id="fLm-lP-OTe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eyx-MH-cdi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="312" y="844"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="mbu-Lg-qVc">
