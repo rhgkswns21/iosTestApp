@@ -264,6 +264,10 @@ class httpFuncList {
 
         request.httpBody = body
         
+        //Write System Log
+        let sysLogFunc = SysLogFunc()
+        sysLogFunc.writeLogFile(logText: "remoteCommand : " + bodyString)
+        
         let httpession = URLSession.shared
         let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
             if self.errorCheck(error: error, data: data) {
@@ -330,6 +334,10 @@ class httpFuncList {
 
         request.httpBody = body
         
+        //Write System Log
+        let sysLogFunc = SysLogFunc()
+        sysLogFunc.writeLogFile(logText: "editDevice : " + bodyString)
+        
         let httpession = URLSession.shared
         let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
             if self.errorCheck(error: error, data: data) {
@@ -359,6 +367,11 @@ class httpFuncList {
         let body = dataString.data(using: String.Encoding.utf8, allowLossyConversion: false)
 
         request.httpBody = body
+        
+        
+        //Write System Log
+        let sysLogFunc = SysLogFunc()
+        sysLogFunc.writeLogFile(logText: "fotaSend : " + dataString)
         
         let httpession = URLSession.shared
         let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
@@ -401,72 +414,81 @@ class httpFuncList {
     
         //DeviceInfo create
     //    func createDevice(IMEI: String, Model: String, FriendlyName: String, PanID: String){
-        func createDevice(IMEI: String, Name: String, PanId: String){
-           
-            let httpURL = readStringFromTxtFile(with: "info_data").split(separator: "\n")
-            var done = false
+    func createDevice(IMEI: String, Name: String, PanId: String){
+       
+        let httpURL = readStringFromTxtFile(with: "info_data").split(separator: "\n")
+        var done = false
 
-            let dataFormatter = DateFormatter()
-            let today = Date()
-            dataFormatter.dateFormat = "yyyy-MM-dd"
-            let formattedDate = dataFormatter.string(from: today)
-            
-            let url = URL(string: httpURL[0]+":3105/Identity/entities")
-            var request = URLRequest(url: url!)
-            request.httpMethod = "post"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let bodyString = "{\"entityId\":\"" + IMEI + "\",\"entityType\":\"GATEWAY\",\"entityCategory\":\"SHM\",\"entityModel\":\"" + IMEI + "\",\"friendlyName\":\"" + Name + "\",\"blocked\":false,\"lastModifiedDate\":\"" + formattedDate + "\",\"version\":\"1.0\",\"panId\":\"" + PanId + "\"}"
-            
-            let body = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        let dataFormatter = DateFormatter()
+        let today = Date()
+        dataFormatter.dateFormat = "yyyy-MM-dd"
+        let formattedDate = dataFormatter.string(from: today)
+        
+        let url = URL(string: httpURL[0]+":3105/Identity/entities")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "post"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let bodyString = "{\"entityId\":\"" + IMEI + "\",\"entityType\":\"GATEWAY\",\"entityCategory\":\"SHM\",\"entityModel\":\"" + IMEI + "\",\"friendlyName\":\"" + Name + "\",\"blocked\":false,\"lastModifiedDate\":\"" + formattedDate + "\",\"version\":\"1.0\",\"panId\":\"" + PanId + "\"}"
+        
+        let body = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: false)
 
-            request.httpBody = body
-            
-            let httpession = URLSession.shared
-            let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
-                if self.errorCheck(error: error, data: data) {
-                    return
-                }
-                print(data as Any)
-                done = true
-            })
-            task.resume()
-            repeat {
-                RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-            } while !done
-        }
+        request.httpBody = body
+        
+        
+        //Write System Log
+        let sysLogFunc = SysLogFunc()
+        sysLogFunc.writeLogFile(logText: "CreateDevice : " + bodyString)
+        
+        let httpession = URLSession.shared
+        let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            if self.errorCheck(error: error, data: data) {
+                return
+            }
+            print(data as Any)
+            done = true
+        })
+        task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+    }
     
     //DeviceInfo Init
     func initCreateDevice(IMEI: String, Type: String, OwnID: String, PreLoad: String, Duration: String, SyncTime: String, LPM: String, SSL: String){
            
-            let httpURL = readStringFromTxtFile(with: "info_data").split(separator: "\n")
-            var done = false
-            
-            let url = URL(string: httpURL[0]+":3105/Identity/entities/" + IMEI + "/config")
-            var request = URLRequest(url: url!)
-            request.httpMethod = "post"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let bodyString = "{\"entityId\":\"" + IMEI + "\",\"role\":" + Type + ",\"ownId\":\"" + OwnID + "\",\"netAddr\":0,\"simPin\":\"" + String(httpURL[1]) + "\",\"apn\":\"" + String(httpURL[2]) + "\",\"simUser\":\"" + String(httpURL[3]) + "\",\"simPassword\":\"" + String(httpURL[4]) + "\",\"preload\":" + PreLoad + ",\"duration\":" + Duration + ",\"useSSL\":" + SSL + ",\"useGPS\":true,\"lowPowerMode\":" + LPM + ",\"syncTime\":" + SyncTime + "}"
-            
-            let body = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        let httpURL = readStringFromTxtFile(with: "info_data").split(separator: "\n")
+        var done = false
+        
+        let url = URL(string: httpURL[0]+":3105/Identity/entities/" + IMEI + "/config")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "post"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let bodyString = "{\"entityId\":\"" + IMEI + "\",\"role\":" + Type + ",\"ownId\":\"" + OwnID + "\",\"netAddr\":0,\"simPin\":\"" + String(httpURL[1]) + "\",\"apn\":\"" + String(httpURL[2]) + "\",\"simUser\":\"" + String(httpURL[3]) + "\",\"simPassword\":\"" + String(httpURL[4]) + "\",\"preload\":" + PreLoad + ",\"duration\":" + Duration + ",\"useSSL\":" + SSL + ",\"useGPS\":true,\"lowPowerMode\":" + LPM + ",\"syncTime\":" + SyncTime + "}"
+        
+        let body = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: false)
 
-            request.httpBody = body
-            
-            let httpession = URLSession.shared
-            let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
-                if self.errorCheck(error: error, data: data) {
-                    return
-                }
-                print(data as Any)
-                let strData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                let str = String(strData!)
-                print(str)
-                done = true
-            })
-            task.resume()
-            repeat {
-                RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-            } while !done
-        }
+        request.httpBody = body
+    
+        //Write System Log
+        let sysLogFunc = SysLogFunc()
+        sysLogFunc.writeLogFile(logText: "initCreateDevice : " + bodyString)
+        
+        let httpession = URLSession.shared
+        let task = httpession.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            if self.errorCheck(error: error, data: data) {
+                return
+            }
+            print(data as Any)
+            let strData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            let str = String(strData!)
+            print(str)
+            done = true
+        })
+        task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+    }
     
     //LogListGet
     func logListGet(PanID: String, SelectDate: String) -> [String] {

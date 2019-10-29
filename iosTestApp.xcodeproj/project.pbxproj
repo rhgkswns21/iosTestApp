@@ -11,6 +11,7 @@
 		1E5858662360354E00C8634A /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5858652360354E00C8634A /* LogViewController.swift */; };
 		1E58586E2362C3ED00C8634A /* SystemLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58586D2362C3ED00C8634A /* SystemLogViewController.swift */; };
 		1E5858702362DB3100C8634A /* SysLogFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E58586F2362DB3100C8634A /* SysLogFunc.swift */; };
+		1E5858722367F7B100C8634A /* SystemLogDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5858712367F7B100C8634A /* SystemLogDataViewController.swift */; };
 		1E601350234DC0DC000BFE4F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E60134F234DC0DC000BFE4F /* GraphView.swift */; };
 		1E601354234F2A02000BFE4F /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E601353234F2A02000BFE4F /* CustomActivityIndicator.swift */; };
 		1EA6B7EC234C606A00406C61 /* FuncList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA6B7EB234C606A00406C61 /* FuncList.swift */; };
@@ -31,6 +32,7 @@
 		1E5858652360354E00C8634A /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		1E58586D2362C3ED00C8634A /* SystemLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLogViewController.swift; sourceTree = "<group>"; };
 		1E58586F2362DB3100C8634A /* SysLogFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SysLogFunc.swift; sourceTree = "<group>"; };
+		1E5858712367F7B100C8634A /* SystemLogDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLogDataViewController.swift; sourceTree = "<group>"; };
 		1E60134F234DC0DC000BFE4F /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		1E601353234F2A02000BFE4F /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		1EA6B7EB234C606A00406C61 /* FuncList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncList.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				1E58586F2362DB3100C8634A /* SysLogFunc.swift */,
 				1E60134F234DC0DC000BFE4F /* GraphView.swift */,
 				1E58586D2362C3ED00C8634A /* SystemLogViewController.swift */,
+				1E5858712367F7B100C8634A /* SystemLogDataViewController.swift */,
 			);
 			path = iosTestApp;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E5858722367F7B100C8634A /* SystemLogDataViewController.swift in Sources */,
 				1ED44FE6234B030900AB55E5 /* ViewController.swift in Sources */,
 				1E5858662360354E00C8634A /* LogViewController.swift in Sources */,
 				1ED44FE2234B030900AB55E5 /* AppDelegate.swift in Sources */,

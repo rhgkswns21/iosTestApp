@@ -174,6 +174,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print(self.IDlist[indexPath.row][0])
             let httpFunc = httpFuncList()
             httpFunc.deviceDelete(IMEI: self.IDlist[indexPath.row][0])
+            self.syslogfunc.writeLogFile(logText: "Delete Device : " + self.IDlist[indexPath.row][0])
             self.IDlist.removeAll()
             self.IDlist = httpFunc.imeiGet()
             self.TableView.reloadData()

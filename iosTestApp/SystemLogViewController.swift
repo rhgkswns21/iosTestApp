@@ -14,6 +14,7 @@ class SystemLogViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var LogFileListTableView: UITableView!
     
     var sysLogFileListArry:[String] = []
+    var selectTextFile = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,15 +24,15 @@ class SystemLogViewController: UIViewController, UITableViewDataSource, UITableV
         self.LogFileListTableView.delegate = self
         
         let syslogfunc = SysLogFunc()
-//        syslogfunc.directoryList()
         self.sysLogFileListArry = syslogfunc.getLogFileList()
     }
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(self.sysLogFileListArry[indexPath.row])
-        let syslogfunc = SysLogFunc()
-        print(syslogfunc.readLogFile(selsetLogFile: self.sysLogFileListArry[indexPath.row]))
+        
+        self.selectTextFile = self.sysLogFileListArry[indexPath.row]
+        self.performSegue(withIdentifier: "showSystemLogDataViewController", sender: self)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,6 +45,14 @@ class SystemLogViewController: UIViewController, UITableViewDataSource, UITableV
         cell.textLabel?.text = self.sysLogFileListArry[indexPath.row]
 
         return cell
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSystemLogDataViewController" {
+            let sysLogDataVC = segue.destination as! SystemLogDataViewController
+            sysLogDataVC.NaviTitle = self.selectTextFile
+        }
     }
 }
 

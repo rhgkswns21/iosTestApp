@@ -32,16 +32,14 @@ class SysLogFunc {
     func directoryList() {
         do {
             let contents = try fileManager.contentsOfDirectory(atPath: self.documentsDir.path)
-            let tetet = try fileManager.subpathsOfDirectory(atPath: self.documentsDir.path)
-            print(tetet)
+//            let subcontents = try fileManager.subpathsOfDirectory(atPath: self.documentsDir.path)
             //Check SysLog Dir
             if contents.contains("SysLog") {
                 do {
-                    var text:String = readLogFile(selsetLogFile: self.nowDate + ".txt")
-                        
-                        let textFormat = DateFormatter()
-                        textFormat.dateFormat = "HH:mm:ss"
-                        text.append(textFormat.string(from: self.today) + "    Device Start\n\r")
+                    var text:String = readLogFile(selectortLogFile: self.nowDate + ".txt")
+                    let textFormat = DateFormatter()
+                    textFormat.dateFormat = "HH:mm:ss"
+                    text.append(textFormat.string(from: self.today) + "\tDevice Start\n")
                     do {
                         try text.write(to: self.todayLogFile, atomically: false, encoding: .utf8)
                     }
@@ -52,11 +50,11 @@ class SysLogFunc {
                 do {
                     try fileManager.createDirectory(atPath: self.syslogDirectory.path, withIntermediateDirectories: false, attributes: nil)
                     do {
-                        var text:String = readLogFile(selsetLogFile: self.nowDate + ".txt")
+                        var text:String = readLogFile(selectortLogFile: self.nowDate + ".txt")
                         
                         let textFormat = DateFormatter()
                         textFormat.dateFormat = "HH:mm:ss"
-                        text.append(textFormat.string(from: self.today) + "    Device Start\n\r")
+                        text.append(textFormat.string(from: self.today) + "\tDevice Start\n")
                         do {
                             try text.write(to: self.todayLogFile, atomically: false, encoding: .utf8)
                         }
@@ -75,9 +73,11 @@ class SysLogFunc {
         }
     }
     
-    func readLogFile(selsetLogFile: String) -> String{
+    func readLogFile(selectortLogFile: String) -> String{
+        
+        let selecotLogFilePath = self.syslogDirectory.appendingPathComponent(selectortLogFile)
         do {
-            let logText = try String(contentsOf: self.todayLogFile, encoding: .utf8)
+            let logText = try String(contentsOf: selecotLogFilePath, encoding: .utf8)
             return logText
         }
         catch let error as NSError {
@@ -85,6 +85,28 @@ class SysLogFunc {
         }
         
         return ""
+    }
+    
+    func writeLogFile(logText: String) {
+        print("writeLogFile")
+
+//        let today = Date()
+//        self.nowDate = format.string(from: self.today)
+        
+        let nowTime = Date()
+        
+        var text:String = readLogFile(selectortLogFile: self.nowDate + ".txt")
+        let textFormat = DateFormatter()
+        textFormat.dateFormat = "HH:mm:ss"
+        text.append(textFormat.string(from: nowTime) + "\t")
+        text.append(logText + "\n")
+        
+        do {
+            try text.write(to: self.todayLogFile, atomically: false, encoding: .utf8)
+        }
+        catch {
+            print("Error Log Write : \(error.localizedDescription)")
+        }
     }
     
     func getLogFileList() -> [String]{

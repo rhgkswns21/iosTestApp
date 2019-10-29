@@ -308,6 +308,7 @@
                     <navigationItem key="navigationItem" id="yMQ-2H-yaY"/>
                     <connections>
                         <outlet property="LogFileListTableView" destination="lGm-Pz-C4c" id="fLm-lP-OTe"/>
+                        <segue destination="csu-lD-aUL" kind="show" identifier="showSystemLogDataViewController" id="M7f-sO-dH5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eyx-MH-cdi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -534,6 +535,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63k-kn-L1o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1242.0289855072465" y="118.52678571428571"/>
+        </scene>
+        <!--System Log Data View Controller-->
+        <scene sceneID="aWi-za-PAG">
+            <objects>
+                <viewController id="csu-lD-aUL" customClass="SystemLogDataViewController" customModule="iosTestApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="F9p-G0-5Je">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jhH-nf-cOx">
+                                <rect key="frame" x="10" y="98" width="394" height="754"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="0CZ-qR-zFI" firstAttribute="bottom" secondItem="jhH-nf-cOx" secondAttribute="bottom" constant="10" id="7ux-xR-zZb"/>
+                            <constraint firstItem="0CZ-qR-zFI" firstAttribute="trailing" secondItem="jhH-nf-cOx" secondAttribute="trailing" constant="10" id="N1Q-aX-X8n"/>
+                            <constraint firstItem="jhH-nf-cOx" firstAttribute="leading" secondItem="0CZ-qR-zFI" secondAttribute="leading" constant="10" id="gq0-Wd-YiX"/>
+                            <constraint firstItem="jhH-nf-cOx" firstAttribute="top" secondItem="0CZ-qR-zFI" secondAttribute="top" constant="10" id="rIf-UK-YCk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0CZ-qR-zFI"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ehp-lG-2HG"/>
+                    <connections>
+                        <outlet property="LogTextView" destination="jhH-nf-cOx" id="hYF-hH-MuA"/>
+                        <outlet property="NavigationItem" destination="Ehp-lG-2HG" id="RCc-Gn-hY5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ngz-Wg-i3D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1242" y="844"/>
         </scene>
         <!--Log View Controller-->
         <scene sceneID="xNh-3R-ehx">
